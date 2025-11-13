@@ -15,9 +15,9 @@ export default defineConfig({
     host: true,
     strictPort: true,
     allowedHosts: [
-      'wedding.sakaloka.id',
-      '.sakaloka.id', // Allow all subdomains
-      'localhost'
+      "wedding.sakaloka.id",
+      ".sakaloka.id", // Allow all subdomains
+      "localhost",
     ],
   },
 })
