@@ -15,13 +15,13 @@ function InvitationPage() {
   const couple = {
     groom: {
       name: "Muhammad Khoirul Fatikin",
-      photo: "/akin-nafisah/Akin.jpg",
+      photo: "/akin-nafisah/DSC06165.webp",
       title: "Putra pertama",
       parent: "Bpk. H. Timur Rustamadji Achmad (alm) & Ibu Hj. Nurul Suhaevah",
     },
     bride: {
       name: "Nafisah",
-      photo: "/akin-nafisah/Nafisah.jpg",
+      photo: "/akin-nafisah/DSC06154.webp",
       title: "Putri pertama",
       parent: "Bpk. Taufik Hidayat (alm) & Ibu Suminah",
     },
@@ -86,7 +86,7 @@ function InvitationPage() {
         </div>
         <div className="h-screen w-full">
           <img
-            src="/akin-nafisah/DSC06225.jpg"
+            src="/akin-nafisah/DSC06225.webp"
             alt="akin-nafisah"
             className="h-screen w-full object-cover"
           />
@@ -129,23 +129,22 @@ function InvitationPage() {
             <h1 className="font-tangerine text-7xl">Couple</h1>
             <p>{`Dengan memohon ridho serta rahmat Allah Subhanahu Wa Ta’ala, Kami bermaksud mengundang Bapak/Ibu/Saudara(i), untuk menghadiri Resepsi Pernikahan`}</p>
           </div>
-          <div className="space-y-4">
+          <div className="space-y-8">
             {couple.groom && (
-
-              <div className="flex flex-col items-center justify-center gap-4">
-                <img
-                  src={couple.groom.photo}
-                  alt={couple.groom.name}
-                  className="size-40 rounded-full"
-                />
+              <div className="flex flex-col items-center justify-center gap-8">
+                <div className="px-8">
+                  <img
+                    src={couple.groom.photo}
+                    alt={couple.groom.name}
+                    className="aspect-9/16 w-full rounded-lg object-cover"
+                  />
+                </div>
                 <div className="w-full max-w-110 space-y-1 rounded-lg bg-[#e3c3b1] p-4 text-center text-[#4a1325]">
                   <p className="font-tangerine text-4xl font-bold">
                     {couple.groom.name}
                   </p>
                   <p className="">{couple.groom.title} dari</p>
-                  <p className="font-semibold">
-                    {couple.groom.parent}
-                  </p>
+                  <p className="font-semibold">{couple.groom.parent}</p>
                 </div>
               </div>
             )}
@@ -154,18 +153,20 @@ function InvitationPage() {
                 <p className="font-tangerine text-8xl leading-[100%] font-bold">
                   &
                 </p>
-                <div className="flex flex-col items-center justify-center gap-4">
-                  <img
-                    src={couple.bride.photo}
-                    alt={couple.bride.name}
-                    className="size-40 rounded-full"
-                  />
+                <div className="flex flex-col items-center justify-center gap-8">
+                  <div className="px-8">
+                    <img
+                      src={couple.bride.photo}
+                      alt={couple.bride.name}
+                      className="aspect-9/16 w-full rounded-lg object-cover"
+                    />
+                  </div>
                   <div className="w-full max-w-110 space-y-1 rounded-lg bg-[#e3c3b1] p-4 text-center text-[#4a1325]">
-                    <p className="font-tangerine text-4xl font-bold">{couple.bride.name}</p>
-                    <p className="">{couple.bride.title} dari</p>
-                    <p className="font-semibold">
-                      {couple.bride.parent}
+                    <p className="font-tangerine text-4xl font-bold">
+                      {couple.bride.name}
                     </p>
+                    <p className="">{couple.bride.title} dari</p>
+                    <p className="font-semibold">{couple.bride.parent}</p>
                   </div>
                 </div>
               </>
@@ -194,7 +195,9 @@ function InvitationPage() {
               </div>
               <div className="flex justify-center">
                 <a
-                  href={event.location}
+                  href={event.locationUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="group relative flex h-9 items-center justify-center gap-2 overflow-hidden rounded-md bg-amber-50 px-6 font-medium shadow"
                 >
                   <MapPin size={18} />
