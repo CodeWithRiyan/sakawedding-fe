@@ -91,6 +91,26 @@ function InvitationPage() {
     },
   ]
 
+  const comments = [
+    {
+      author: "Andini",
+      message:
+        "Selamat atas pernikahannya! Semoga selalu diberi kebahagiaan dan cinta yang tak berkesudahan.",
+      time: "2 menit yang lalu",
+    },
+    {
+      author: "Budi Barakallah",
+      message: "Semoga menjadi keluarga sakinah, mawaddah, warahmah.",
+      time: "10 menit yang lalu",
+    },
+    {
+      author: "Lina",
+      message:
+        "Ikut bahagia melihat kalian bersatu. Semoga langgeng sampai akhir hayat!",
+      time: "30 menit yang lalu",
+    },
+  ]
+
   return (
     <div className="flex w-full flex-col font-funnel lg:flex-row">
       <div className="relative top-0 flex h-screen flex-1 flex-col items-center justify-center gap-4 text-center lg:sticky">
@@ -321,7 +341,12 @@ function InvitationPage() {
           ))}
         </section>
         <section className="flex justify-center space-y-14 bg-[#4a1325] px-6 py-20 text-center text-[#e3c3b1]">
-          <div className="w-full max-w-md overflow-hidden rounded-lg">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.5 }}
+            className="w-full max-w-md overflow-hidden rounded-lg"
+          >
             <img
               src="/akin-nafisah/DSC06209.webp"
               alt="akin-nafisah"
@@ -346,7 +371,7 @@ function InvitationPage() {
                 />
               </motion.div>
             </div>
-          </div>
+          </motion.div>
         </section>
         <section className="space-y-8 bg-[#e3c3b1] px-6 py-20 text-center text-[#4a1325]">
           <motion.h1
@@ -435,7 +460,79 @@ function InvitationPage() {
             </motion.a>
           </div>
         </section>
-        <section className="flex justify-center space-y-8 border-t-80 border-[#4a1325] bg-[#e3c3b1] px-6 py-20 text-center text-[#e3c3b1]"></section>
+        <section className="space-y-4 border-t-80 border-[#4a1325] bg-[#e3c3b1] px-6 py-20 text-center text-[#4a1325]">
+          <motion.h1
+            initial={{ opacity: 0, transform: "translateY(50px)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0)" }}
+            transition={{ duration: 0.8 }}
+            className="font-tangerine text-7xl"
+          >
+            Comment
+          </motion.h1>
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="space-y-4 rounded-lg bg-[#4a132532] px-6 py-12"
+          >
+            {comments.map((comment, index) => (
+              <div
+                key={index}
+                className="flex gap-2 rounded-md bg-white p-2 text-start"
+              >
+                <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
+                  {comment.author.charAt(0)}
+                </div>
+                <div>
+                  <p className="font-semibold">{comment.author}</p>
+                  <p>{comment.message}</p>
+                  <p className="text-sm font-extralight">{comment.time}</p>
+                </div>
+              </div>
+            ))}
+          </motion.div>
+        </section>
+        <section className="relative flex h-screen flex-col items-center justify-start gap-8 overflow-hidden px-6 py-14 text-center text-[#4a1325]">
+          <img
+            src="/akin-nafisah/DSC06187.webp"
+            alt=""
+            className="object-[50 %_20%] absolute top-0 h-full w-full scale-150 object-cover"
+          />
+          <div className="flex flex-col items-center justify-start gap-4">
+            <motion.h1
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8 }}
+              className="font-quintessential text-5xl font-bold"
+            >
+              Terima Kasih
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+              className="max-w-96"
+            >{`Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restu kepada kami.`}</motion.p>
+          </div>
+          <div className="flex flex-col items-center justify-center gap-4">
+            <motion.h1
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8 }}
+              className="font-quintessential text-2xl font-bold"
+            >
+              Kami Yang Berbahagia
+            </motion.h1>
+            <motion.h1
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8 }}
+              className="font-tangerine text-5xl font-bold"
+            >
+              Akin & Nafisah
+            </motion.h1>
+          </div>
+        </section>
       </div>
     </div>
   )
