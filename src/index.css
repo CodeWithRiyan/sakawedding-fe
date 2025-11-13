@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Tangerine:wght@400;700&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Display:wght@300..800&family=Tangerine:wght@400;700&display=swap");
 
 @import "tailwindcss";
 @import "tw-animate-css";
@@ -53,7 +53,7 @@
 }
 
 @theme inline {
-  --font-tangerine: "Tangerine", cursive; 
+  --font-tangerine: "Tangerine", cursive;
   --font-funnel: "Funnel Display", sans-serif;
   --radius-xs: calc(var(--radius) - 8px);
   --radius-sm: calc(var(--radius) - 4px);
