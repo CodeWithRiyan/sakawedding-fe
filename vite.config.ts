@@ -11,4 +11,13 @@ export default defineConfig({
       "@": path.resolve(__dirname, "./src"),
     },
   },
+  preview: {
+    host: true,
+    strictPort: true,
+    allowedHosts: [
+      'wedding.sakaloka.id',
+      '.sakaloka.id', // Allow all subdomains
+      'localhost'
+    ],
+  },
 })
