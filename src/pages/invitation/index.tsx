@@ -1,5 +1,6 @@
 import dayjs from "dayjs"
 import { MapPin } from "lucide-react"
+import { motion } from "motion/react"
 import queryString from "query-string"
 import { useLocation, useParams } from "react-router"
 
@@ -78,7 +79,7 @@ function InvitationPage() {
               Akin & Nafisah
             </h1>
           </div>
-          <div className="min-w-80 space-y-1 rounded-lg bg-white p-4">
+          <div className="min-w-80 space-y-1 rounded-lg bg-white p-4 text-[#4a1325]">
             <p>Kepada Yth.</p>
             <p className="font-bold capitalize">{searchParams.to}</p>
             <p>Di Tempat</p>
@@ -95,65 +96,132 @@ function InvitationPage() {
       <div className="w-full max-w-none flex-none lg:max-w-xl">
         <section className="flex min-h-screen items-center justify-center bg-[#4a1325]">
           <div className="space-y-4 text-center text-[#e3c3b1]">
-            <p className="text-lg font-extralight">The Wedding Of</p>
-            <div className="flex flex-col items-center justify-center font-tangerine text-8xl font-bold">
+            <motion.p
+              initial={{ opacity: 0, transform: "translateY(-50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8 }}
+              className="text-lg font-extralight"
+            >
+              The Wedding Of
+            </motion.p>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.8, delay: 0.5 }}
+              className="flex flex-col items-center justify-center font-tangerine text-8xl font-bold"
+            >
               <span>Akin</span>
               <span> & </span>
               <span>Nafisah</span>
-            </div>
-            <p className="text-lg font-extralight">Ahad, 23 November 2025</p>
+            </motion.div>
+            <motion.p
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8, delay: 1 }}
+              className="text-lg font-extralight"
+            >
+              Ahad, 23 November 2025
+            </motion.p>
           </div>
         </section>
         <section className="space-y-4 bg-[#e3c3b1] p-6">
           <div className="w-full space-y-4 rounded-lg bg-[#4a1325] p-4 pb-8 text-center text-balance text-[#e3c3b1]">
-            <div className="flex justify-center">
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="flex justify-center"
+            >
               <img src="/dove.png" alt="dove" className="w-60" />
-            </div>
-            <div className="space-y-2">
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 1 }}
+              className="space-y-2"
+            >
               <p className="font-extralight">
                 {`"Dan di antara tanda-tanda (kebesaran)-Nya ialah Dia menciptakan pasangan-pasangan untukmu dari jenismu sendiri, agar kamu cenderung dan merasa tenteram kepadanya, dan Dia menjadikan di antaramu rasa kasih dan sayang. Sungguh, pada yang demikian itu benar-benar terdapat tanda-tanda (kebesaran Allah) bagi kaum yang berpikir."`}
               </p>
               <p className="font-semibold">{`(Ar-Rum: 21)`}</p>
-            </div>
+            </motion.div>
           </div>
-          <div className="aspect-9/16 w-full overflow-hidden rounded-lg pr-14 pb-32">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.5 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 0.8 }}
+            className="aspect-9/16 w-full overflow-hidden rounded-lg pr-14 pb-32"
+          >
             <img
               src="/akin-nafisah/DSC06161.webp"
               alt="akin-nafisah"
               className="h-full scale-150 object-cover object-bottom-right"
             />
-          </div>
+          </motion.div>
         </section>
         <section className="space-y-14 bg-[#4a1325] px-6 py-20 text-center text-[#e3c3b1]">
           <div>
-            <h1 className="font-tangerine text-7xl">Couple</h1>
-            <p>{`Dengan memohon ridho serta rahmat Allah Subhanahu Wa Ta’ala, Kami bermaksud mengundang Bapak/Ibu/Saudara(i), untuk menghadiri Resepsi Pernikahan`}</p>
+            <motion.h1
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8 }}
+              className="font-tangerine text-7xl"
+            >
+              Couple
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >
+              {`Dengan memohon ridho serta rahmat Allah Subhanahu Wa Ta’ala, Kami bermaksud mengundang Bapak/Ibu/Saudara(i), untuk menghadiri Resepsi Pernikahan`}
+            </motion.p>
           </div>
           <div className="space-y-8">
             {couple.groom && (
               <div className="flex flex-col items-center justify-center gap-8">
-                <div className="px-8">
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="px-8"
+                >
                   <img
                     src={couple.groom.photo}
                     alt={couple.groom.name}
                     className="aspect-9/16 w-full rounded-lg object-cover"
                   />
-                </div>
-                <div className="w-full max-w-110 space-y-1 rounded-lg bg-[#e3c3b1] p-4 text-center text-[#4a1325]">
+                </motion.div>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="w-full max-w-110 space-y-1 rounded-lg bg-[#e3c3b1] p-4 text-center text-[#4a1325]"
+                >
                   <p className="font-tangerine text-4xl font-bold">
                     {couple.groom.name}
                   </p>
                   <p className="">{couple.groom.title} dari</p>
                   <p className="font-semibold">{couple.groom.parent}</p>
-                </div>
+                </motion.div>
               </div>
             )}
             {couple.bride && (
               <>
-                <p className="font-tangerine text-8xl leading-[100%] font-bold">
+                <motion.p
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="font-tangerine text-8xl leading-[100%] font-bold"
+                >
                   &
-                </p>
-                <div className="flex flex-col items-center justify-center gap-8">
+                </motion.p>
+                <motion.div
+                  initial={{ opacity: 0, scale: 0.5 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  transition={{ duration: 0.8 }}
+                  className="flex flex-col items-center justify-center gap-8"
+                >
                   <div className="px-8">
                     <img
                       src={couple.bride.photo}
@@ -161,26 +229,46 @@ function InvitationPage() {
                       className="aspect-9/16 w-full rounded-lg object-cover"
                     />
                   </div>
-                  <div className="w-full max-w-110 space-y-1 rounded-lg bg-[#e3c3b1] p-4 text-center text-[#4a1325]">
+                  <motion.div
+                    initial={{ opacity: 0, scale: 0.5 }}
+                    whileInView={{ opacity: 1, scale: 1 }}
+                    transition={{ duration: 0.8 }}
+                    className="w-full max-w-110 space-y-1 rounded-lg bg-[#e3c3b1] p-4 text-center text-[#4a1325]"
+                  >
                     <p className="font-tangerine text-4xl font-bold">
                       {couple.bride.name}
                     </p>
                     <p className="">{couple.bride.title} dari</p>
                     <p className="font-semibold">{couple.bride.parent}</p>
-                  </div>
-                </div>
+                  </motion.div>
+                </motion.div>
               </>
             )}
           </div>
         </section>
         <section className="space-y-8 bg-[#e3c3b1] px-6 py-20 text-center text-[#4a1325] sm:px-16">
           <div>
-            <h1 className="font-tangerine text-7xl">Save The Date</h1>
-            <p>{`Yang InsyaAllah akan dilaksanakan pada`}</p>
+            <motion.h1
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8 }}
+              className="font-tangerine text-7xl"
+            >
+              Save The Date
+            </motion.h1>
+            <motion.p
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              transition={{ duration: 0.8, delay: 0.3 }}
+            >{`Yang InsyaAllah akan dilaksanakan pada`}</motion.p>
           </div>
           {sortedEvent.map((event) => (
-            <div
+            <motion.div
               key={event.name}
+              initial={{ opacity: 0, scale: 0.5 }}
+              whileInView={{ opacity: 1, scale: 1 }}
+              transition={{ duration: 0.5 }}
+              viewport={{ margin: "0px 0px -200px 0px" }}
               className="space-y-4 border border-[#4a1325] bg-[#4a132518] p-6"
             >
               <h1 className="font-tangerine text-5xl font-bold">
@@ -205,7 +293,7 @@ function InvitationPage() {
                   <div className="absolute bottom-0 left-0 aspect-square w-full translate-y-full rounded-4xl bg-amber-500/20 transition-transform group-hover:translate-y-[50%]"></div>
                 </a>
               </div>
-            </div>
+            </motion.div>
           ))}
         </section>
       </div>
