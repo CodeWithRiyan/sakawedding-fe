@@ -16,7 +16,7 @@ export const PublicRoute: RouteObject[] = [
     element: <MainLayout />,
     children: [
       { path: "/", element: <LandingPage /> },
-      { path: "/invitation/:name", element: <InvitationPage /> },
+      { path: "/invitation/:slug", element: <InvitationPage /> },
       { path: "/share-link", element: <ShareLinkPage /> },
       { path: "*", element: <NotFound /> },
     ],
