@@ -49,7 +49,7 @@ export default function ShareLinkPage() {
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
-      slug: "",
+      slug: "akin-nafisah",
       event: "all",
       contact: "",
       to: "",
@@ -88,6 +88,7 @@ export default function ShareLinkPage() {
                       id="slug"
                       aria-invalid={fieldState.invalid}
                       placeholder="Masukkan slug (contoh: akin-nafisah)"
+                      disabled
                       autoComplete="off"
                       autoCorrect="off"
                       autoCapitalize="off"
@@ -148,7 +149,7 @@ export default function ShareLinkPage() {
                 render={({ field, fieldState }) => (
                   <Field data-invalid={fieldState.invalid}>
                     <FieldLabel htmlFor="contact">
-                      No Whatsapp Mempelai Pengantin
+                      {`No Whatsapp (Untuk Konfirmasi TF)`}
                     </FieldLabel>
                     <Input
                       {...field}
@@ -211,7 +212,7 @@ export default function ShareLinkPage() {
         </CardHeader>
         <CardContent>
           {form.formState.isSubmitSuccessful && (
-            <div className="rounded-md bg-gray-100 p-4 font-mono text-sm break-words whitespace-pre-wrap">
+            <div className="rounded-md bg-gray-100 p-4 font-mono text-sm wrap-break-word whitespace-pre-wrap">
               {`Kepada Yth.
 Bapak/Ibu/Saudara/i
 *${form.getValues("to")}*

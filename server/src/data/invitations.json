@@ -1,0 +1,62 @@
+{
+  "akin-nafisah": {
+    "id": "akin-nafisah",
+    "couple": {
+      "groom": {
+        "name": "Muhammad Khoirul Fatikin",
+        "photo": "/akin-nafisah/DSC06165.webp",
+        "title": "Putra",
+        "parent": "Bpk. H. Timur Rustamadji Achmad (alm) & Ibu Hj. Nurul Suhaevah"
+      },
+      "bride": {
+        "name": "Nafisah",
+        "photo": "/akin-nafisah/DSC06154.webp",
+        "title": "Anak ke-2",
+        "parent": "Bpk. Taufik Hidayat (alm) & Ibu Suminah"
+      }
+    },
+    "events": [
+      {
+        "for": ["groom"],
+        "name": "Ramah Tamah",
+        "dateFrom": "2025-11-22T12:00:00.000Z",
+        "location": "JL. KH. Wahid Hasyim Gg. Gedhong (yayasan simthudduror) No.71, Kauman Ledok, Pekalongan Timur, Kota Pekalongan",
+        "locationUrl": "https://maps.app.goo.gl/etvrQRyxzuz18kFe7?g_st=aw"
+      },
+      {
+        "for": ["bride", "groom"],
+        "name": "Akad Nikah",
+        "dateFrom": "2025-11-23T00:00:00.000Z",
+        "dateTo": "2023-01-01T01:00:00.000Z",
+        "location": "JL. Matana, No.41 , Poncol, Pekalongan Timur, Kota Pekalongan",
+        "locationUrl": "https://maps.app.goo.gl/i4d8cdJj8LL1LUCH9?g_st=aw"
+      },
+      {
+        "for": ["bride"],
+        "name": "Resepsi",
+        "dateFrom": "2025-11-23T05:00:00.000Z",
+        "dateTo": "2023-01-01T07:00:00.000Z",
+        "location": "JL. Matana, No.41 , Poncol, Pekalongan Timur, Kota Pekalongan",
+        "locationUrl": "https://maps.app.goo.gl/i4d8cdJj8LL1LUCH9?g_st=aw"
+      }
+    ],
+    "loveStory": [
+      {
+        "title": "Mei 2025 - Pertemuan Dua Keluarga Besar",
+        "description": "Setelah melalui perjalanan yang penuh doa dan keyakinan, akhirnya dua keluarga besar kami dipertemukan dalam suasana hangat dan penuh kebahagiaan. Momen ini menjadi awal resmi langkah kami menuju masa depan bersama."
+      },
+      {
+        "title": "Juli 2025 - Pertunangan",
+        "description": "Kami mengikat janji untuk saling menjaga dan mendukung satu sama lain. Sebuah simbol komitmen dan cinta yang kami rayakan bersama orang-orang terdekat."
+      },
+      {
+        "title": "Oktober 2025 - Prewedding",
+        "description": "Kami mengabadikan kisah cinta ini dalam bingkai kenangan indah. Setiap senyum dan tatapan menjadi saksi betapa kami siap melangkah menuju hari bahagia."
+      },
+      {
+        "title": "November 2025 — Menikah",
+        "description": "Inilah puncak perjalanan cinta kami — saat dua hati dipersatukan dalam satu ikatan suci. Semoga pernikahan ini menjadi awal kehidupan baru yang penuh berkah, cinta, dan kebahagiaan selamanya."
+      }
+    ]
+  }
+}

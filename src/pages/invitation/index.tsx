@@ -15,12 +15,18 @@ import {
   InputGroupTextarea,
 } from "@/components/ui/input-group"
 import { cn } from "@/lib/utils"
+import {
+  commentService,
+  invitationService,
+  type Comment,
+  type Invitation,
+} from "@/services/api"
 import { zodResolver } from "@hookform/resolvers/zod"
 import dayjs from "dayjs"
 import { Mail, MailOpen, MapPin, Send } from "lucide-react"
 import { motion } from "motion/react"
 import queryString from "query-string"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import { Helmet } from "react-helmet"
 import { Controller, useForm } from "react-hook-form"
 import { useLocation, useParams } from "react-router"
@@ -33,11 +39,17 @@ const formSchema = z.object({
 })
 
 function InvitationPage() {
-  const totalPages = 5
-  const initialPage = 1
-
   const [open, setOpen] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const [invitation, setInvitation] = useState<Invitation | null>(null)
+  const [comments, setComments] = useState<Comment[]>([])
+  const [currentPage, setCurrentPage] = useState<number>(1)
+  const [totalPages, setTotalPages] = useState<number>(1)
+  const [loading, setLoading] = useState<boolean>(true)
+  const [commentsLoading, setCommentsLoading] = useState<boolean>(false)
+  const [error, setError] = useState<string | null>(null)
+  const [submitting, setSubmitting] = useState<boolean>(false)
+
   const ref = useRef<HTMLDivElement>(null)
   const audioRef = useRef<HTMLAudioElement>(null)
   const params = useParams()
@@ -45,7 +57,7 @@ function InvitationPage() {
   const searchParams = queryString.parse(location.search) as {
     [key: string]: string
   }
-  const slug = params.slug
+  const name = params.name
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -55,8 +67,78 @@ function InvitationPage() {
     },
   })
 
-  function onSubmit(data: z.infer<typeof formSchema>) {
-    console.log(data)
+  // Fetch invitation data
+  useEffect(() => {
+    const fetchInvitation = async () => {
+      if (!name) return
+
+      try {
+        setLoading(true)
+        const data = await invitationService.getByName(name)
+        setInvitation(data)
+      } catch (err) {
+        setError("Failed to load invitation data")
+        console.error(err)
+      } finally {
+        setLoading(false)
+      }
+    }
+
+    fetchInvitation()
+  }, [name])
+
+  // Fetch comments
+  useEffect(() => {
+    const fetchComments = async () => {
+      if (!name) return
+
+      try {
+        setCommentsLoading(true)
+        const response = await commentService.getByInvitation(
+          name,
+          currentPage,
+          10
+        )
+        setComments(response.data)
+        setTotalPages(response.pagination.totalPages)
+      } catch (err) {
+        console.error("Failed to load comments:", err)
+      } finally {
+        setCommentsLoading(false)
+      }
+    }
+
+    fetchComments()
+  }, [name, currentPage])
+
+  async function onSubmit(data: z.infer<typeof formSchema>) {
+    if (!name) return
+
+    try {
+      setSubmitting(true)
+      await commentService.create(name, {
+        author: data.name,
+        message: data.message,
+      })
+
+      // Reset form
+      form.reset()
+
+      // Refresh comments
+      const response = await commentService.getByInvitation(name, 1, 10)
+      setComments(response.data)
+      setTotalPages(response.pagination.totalPages)
+      setCurrentPage(1)
+    } catch (err) {
+      console.error("Failed to submit comment:", err)
+      alert("Failed to submit comment. Please try again.")
+    } finally {
+      setSubmitting(false)
+    }
+  }
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page)
   }
 
   const toggleMusic = () => {
@@ -92,51 +174,28 @@ function InvitationPage() {
     }
   }
 
-  const couple = {
-    groom: {
-      name: "Muhammad Khoirul Fatikin",
-      photo: "/akin-nafisah/DSC06165.webp",
-      title: "Putra",
-      parent: "Bpk. H. Timur Rustamadji Achmad (alm) & Ibu Hj. Nurul Suhaevah",
-    },
-    bride: {
-      name: "Nafisah",
-      photo: "/akin-nafisah/DSC06154.webp",
-      title: "Anak ke-2",
-      parent: "Bpk. Taufik Hidayat (alm) & Ibu Suminah",
-    },
+  // Loading state
+  if (loading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <HashLoader size={60} color="#4a1325" />
+      </div>
+    )
   }
 
-  const event = [
-    {
-      for: ["groom"],
-      name: "Ramah Tamah",
-      dateFrom: "2025-11-22T12:00:00.000Z",
-      location:
-        "JL. KH. Wahid Hasyim Gg. Gedhong (yayasan simthudduror) No.71, Kauman Ledok, Pekalongan Timur, Kota Pekalongan",
-      locationUrl: "https://maps.app.goo.gl/etvrQRyxzuz18kFe7?g_st=aw",
-    },
-    {
-      for: ["bride", "groom"],
-      name: "Akad Nikah",
-      dateFrom: "2025-11-23T00:00:00.000Z",
-      dateTo: "2023-01-01T01:00:00.000Z",
-      location: "JL. Matana, No.41 , Poncol, Pekalongan Timur, Kota Pekalongan",
-      locationUrl: "https://maps.app.goo.gl/i4d8cdJj8LL1LUCH9?g_st=aw",
-    },
-    {
-      for: ["bride"],
-      name: "Resepsi",
-      dateFrom: "2025-11-23T05:00:00.000Z",
-      dateTo: "2023-01-01T07:00:00.000Z",
-      location: "JL. Matana, No.41 , Poncol, Pekalongan Timur, Kota Pekalongan",
-      locationUrl: "https://maps.app.goo.gl/i4d8cdJj8LL1LUCH9?g_st=aw",
-    },
-  ]
+  // Error state
+  if (error || !invitation) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        <p className="text-red-500">{error || "Invitation not found"}</p>
+      </div>
+    )
+  }
 
-  const currentEvent = event.filter((e) => {
+  const { couple, events, loveStory } = invitation
+
+  const currentEvent = events.filter((e) => {
     if (!searchParams.event || searchParams.event === "all") return true
-
     return e.for.includes(searchParams.event)
   })
 
@@ -146,48 +205,20 @@ function InvitationPage() {
     return aDate.getTime() - bDate.getTime()
   })
 
-  const loveStory = [
-    {
-      title: "Mei 2025 - Pertemuan Dua Keluarga Besar",
-      description:
-        "Setelah melalui perjalanan yang penuh doa dan keyakinan, akhirnya dua keluarga besar kami dipertemukan dalam suasana hangat dan penuh kebahagiaan. Momen ini menjadi awal resmi langkah kami menuju masa depan bersama.",
-    },
-    {
-      title: "Juli 2025 - Pertunangan",
-      description:
-        "Kami mengikat janji untuk saling menjaga dan mendukung satu sama lain. Sebuah simbol komitmen dan cinta yang kami rayakan bersama orang-orang terdekat.",
-    },
-    {
-      title: "Oktober 2025 - Prewedding",
-      description:
-        "Kami mengabadikan kisah cinta ini dalam bingkai kenangan indah. Setiap senyum dan tatapan menjadi saksi betapa kami siap melangkah menuju hari bahagia.",
-    },
-    {
-      title: "November 2025 — Menikah",
-      description:
-        "Inilah puncak perjalanan cinta kami — saat dua hati dipersatukan dalam satu ikatan suci. Semoga pernikahan ini menjadi awal kehidupan baru yang penuh berkah, cinta, dan kebahagiaan selamanya.",
-    },
-  ]
+  const getRelativeTime = (dateString: string) => {
+    const now = new Date()
+    const date = new Date(dateString)
+    const diffInMinutes = Math.floor(
+      (now.getTime() - date.getTime()) / (1000 * 60)
+    )
 
-  const comments = [
-    {
-      author: "Andini",
-      message:
-        "Selamat atas pernikahannya! Semoga selalu diberi kebahagiaan dan cinta yang tak berkesudahan.",
-      time: "2 menit yang lalu",
-    },
-    {
-      author: "Budi Barakallah",
-      message: "Semoga menjadi keluarga sakinah, mawaddah, warahmah.",
-      time: "10 menit yang lalu",
-    },
-    {
-      author: "Lina",
-      message:
-        "Ikut bahagia melihat kalian bersatu. Semoga langgeng sampai akhir hayat!",
-      time: "30 menit yang lalu",
-    },
-  ]
+    if (diffInMinutes < 1) return "Baru saja"
+    if (diffInMinutes < 60) return `${diffInMinutes} menit yang lalu`
+    const diffInHours = Math.floor(diffInMinutes / 60)
+    if (diffInHours < 24) return `${diffInHours} jam yang lalu`
+    const diffInDays = Math.floor(diffInHours / 24)
+    return `${diffInDays} hari yang lalu`
+  }
 
   return (
     <>
@@ -216,7 +247,7 @@ function InvitationPage() {
         <meta property="og:image:height" content="630" />
         <meta
           property="og:url"
-          content={`https://sakaloka.id/invitation/${slug}`}
+          content={`https://sakaloka.id/invitation/${name}`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="id_ID" />
@@ -717,9 +748,10 @@ function InvitationPage() {
                   <Field orientation="horizontal">
                     <button
                       type="submit"
-                      className="group relative flex h-9 w-full items-center justify-center gap-2 overflow-hidden rounded-md bg-[#4a1325] px-6 font-medium text-[#e3c3b1] shadow"
+                      disabled={submitting}
+                      className="group relative flex h-9 w-full items-center justify-center gap-2 overflow-hidden rounded-md bg-[#4a1325] px-6 font-medium text-[#e3c3b1] shadow disabled:opacity-50"
                     >
-                      Kirim
+                      {submitting ? "Mengirim..." : "Kirim"}
                       <Send size={16} />
                       <div className="absolute bottom-0 left-0 aspect-square w-full translate-y-full rounded-4xl bg-amber-500/20 transition-transform group-hover:translate-y-[50%]"></div>
                     </button>
@@ -727,28 +759,37 @@ function InvitationPage() {
                 </FieldGroup>
               </form>
               <div className="flex flex-col items-center gap-4 px-4">
+              {commentsLoading ? (
                 <HashLoader size={40} color="#4a1325" />
-                {comments.map((comment, index) => (
-                  <div
-                    key={index}
-                    className="flex gap-2 rounded-md bg-white p-2 text-start"
-                  >
-                    <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
-                      {comment.author.charAt(0)}
+              ) : comments.length > 0 ? (
+                <>
+                  {comments.map((comment) => (
+                    <div
+                      key={comment.id}
+                      className="w-full flex gap-2 rounded-md bg-white p-2 text-start"
+                    >
+                      <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
+                        {comment.author.charAt(0).toUpperCase()}
+                      </div>
+                      <div className="flex-1">
+                        <p className="font-semibold">{comment.author}</p>
+                        <p>{comment.message}</p>
+                        <p className="text-sm font-extralight">
+                          {getRelativeTime(comment.createdAt)}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="font-semibold">{comment.author}</p>
-                      <p>{comment.message}</p>
-                      <p className="text-sm font-extralight">{comment.time}</p>
-                    </div>
-                  </div>
-                ))}
-                <BasicPagination
-                  totalPages={totalPages}
-                  initialPage={initialPage}
-                  onPageChange={(page) => console.log(page)}
-                />
-              </div>
+                  ))}
+                  <BasicPagination
+                    totalPages={totalPages}
+                    initialPage={currentPage}
+                    onPageChange={handlePageChange}
+                  />
+                </>
+              ) : (
+                <p className="text-center">Belum ada komentar</p>
+              )}
+            </div>
             </motion.div>
           </section>
           <section className="relative flex h-screen flex-col items-center justify-start gap-8 overflow-hidden bg-[#e3c3b1] px-6 py-14 text-center text-[#4a1325]">
