@@ -1,13 +1,39 @@
 import AnimatedNumberCountdown from "@/components/custom/animated-number-countdown"
+import BasicPagination from "@/components/custom/basic-pagination"
+import {
+  Field,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from "@/components/ui/field"
+import { Input } from "@/components/ui/input"
+import {
+  InputGroup,
+  InputGroupAddon,
+  InputGroupText,
+  InputGroupTextarea,
+} from "@/components/ui/input-group"
 import { cn } from "@/lib/utils"
+import { zodResolver } from "@hookform/resolvers/zod"
 import dayjs from "dayjs"
-import { Mail, MailOpen, MapPin } from "lucide-react"
+import { Mail, MailOpen, MapPin, Send } from "lucide-react"
 import { motion } from "motion/react"
 import queryString from "query-string"
 import { useRef, useState } from "react"
+import { Controller, useForm } from "react-hook-form"
 import { useLocation, useParams } from "react-router"
+import { HashLoader } from "react-spinners"
+import * as z from "zod"
+
+const formSchema = z.object({
+  name: z.string().min(1, "Nama wajib diisi."),
+  message: z.string().max(500, "Pesan maksimal 500 karakter."),
+})
 
 function InvitationPage() {
+  const totalPages = 5
+  const initialPage = 1
+
   const [open, setOpen] = useState<boolean>(false)
   const [isPlaying, setIsPlaying] = useState<boolean>(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -19,6 +45,18 @@ function InvitationPage() {
   }
   const name = params.name
   console.log("name", name)
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      name: "",
+      message: "",
+    },
+  })
+
+  function onSubmit(data: z.infer<typeof formSchema>) {
+    console.log(data)
+  }
 
   const toggleMusic = () => {
     if (audioRef.current) {
@@ -151,7 +189,9 @@ function InvitationPage() {
   ]
 
   return (
-    <div className={cn("flex w-full flex-col font-funnel", open && "lg:flex-row")}>
+    <div
+      className={cn("flex w-full flex-col font-funnel", open && "lg:flex-row")}
+    >
       <audio ref={audioRef} loop>
         <source
           src="/music/Wedding_Nasheed_Muhammad_Al_Muqit.mp3"
@@ -162,12 +202,12 @@ function InvitationPage() {
       <button
         onClick={toggleMusic}
         className={cn(
-          "fixed bottom-6 left-6 z-50 transition-opacity duration-500 cursor-pointer",
+          "fixed bottom-2 left-2 z-50 cursor-pointer transition-opacity duration-500",
           !open && "opacity-0",
           isPlaying && "animate-spin-slow"
         )}
       >
-        <img src="/vinyl.png" alt="vinyl" className="w-20" />
+        <img src="/vinyl.png" alt="vinyl" className="w-14" />
       </button>
 
       <div className="sticky top-0 flex h-screen flex-1 flex-col items-center justify-center gap-4 text-center">
@@ -220,14 +260,14 @@ function InvitationPage() {
         ref={ref}
         className={cn(
           "z-10 w-full max-w-none flex-none transition-all duration-500 lg:max-w-xl",
-          !open && "z-0 overflow-hidden lg:w-0"
+          !open && "-z-1 overflow-hidden lg:w-0"
         )}
       >
         <section className="flex min-h-screen items-center justify-center bg-[#4a1325]">
           <div className="space-y-4 text-center text-[#e3c3b1]">
             <motion.p
               initial={{ opacity: 0, transform: "translateY(-50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="text-lg font-extralight"
             >
@@ -245,7 +285,7 @@ function InvitationPage() {
             </motion.div>
             <motion.p
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, delay: 1 }}
               className="text-lg font-extralight"
             >
@@ -292,7 +332,7 @@ function InvitationPage() {
           <div>
             <motion.h1
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="font-tangerine text-7xl"
             >
@@ -300,7 +340,7 @@ function InvitationPage() {
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >
               {`Dengan memohon ridho serta rahmat Allah Subhanahu Wa Ta’ala, Kami bermaksud mengundang Bapak/Ibu/Saudara(i), untuk menghadiri Resepsi Pernikahan`}
@@ -379,7 +419,7 @@ function InvitationPage() {
           <div>
             <motion.h1
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="font-tangerine text-7xl"
             >
@@ -387,7 +427,7 @@ function InvitationPage() {
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, delay: 0.3 }}
             >{`Yang InsyaAllah akan dilaksanakan pada`}</motion.p>
           </div>
@@ -440,7 +480,7 @@ function InvitationPage() {
             <div className="bg-[#e3c3b1] py-6 text-[#4a1325]">
               <motion.h1
                 initial={{ opacity: 0, transform: "translateY(50px)" }}
-                whileInView={{ opacity: 1, transform: "translateY(0)" }}
+                whileInView={{ opacity: 1, transform: "translateY(0px)" }}
                 transition={{ duration: 0.6 }}
                 className="font-tangerine text-6xl"
               >
@@ -448,7 +488,7 @@ function InvitationPage() {
               </motion.h1>
               <motion.div
                 initial={{ opacity: 0, transform: "translateY(50px)" }}
-                whileInView={{ opacity: 1, transform: "translateY(0)" }}
+                whileInView={{ opacity: 1, transform: "translateY(0px)" }}
                 transition={{ duration: 0.6, delay: 0.3 }}
               >
                 <AnimatedNumberCountdown
@@ -461,7 +501,7 @@ function InvitationPage() {
         <section className="space-y-8 bg-[#e3c3b1] px-6 py-20 text-center text-[#4a1325]">
           <motion.h1
             initial={{ opacity: 0, transform: "translateY(50px)" }}
-            whileInView={{ opacity: 1, transform: "translateY(0)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             transition={{ duration: 0.6 }}
             className="font-tangerine text-7xl"
           >
@@ -491,7 +531,7 @@ function InvitationPage() {
           <div className="absolute inset-0 mt-20 flex flex-col items-center justify-center gap-8">
             <motion.h1
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="font-quintessential text-6xl font-bold"
             >
@@ -499,7 +539,7 @@ function InvitationPage() {
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="max-w-96"
             >{`Terima kasih telah mengisi kebahagiaan dan kegembiraan di pernikahan kami dengan kehadiran dan hadiah indah Anda.`}</motion.p>
@@ -535,12 +575,12 @@ function InvitationPage() {
               initial={{ opacity: 0, scale: 0.5 }}
               whileInView={{ opacity: 1, scale: 1 }}
               transition={{ duration: 0.6, delay: 1.2 }}
-              href="https://api.whatsapp.com/send/?phone=%2B628562770604&text=Hai%2C%20Aku%20udah%20transfer%20ke%20kamu%20nih.%20Samawa%20ya%2C%20semoga%20dilancarkan%20sampai%20hari%20H."
+              href={`https://api.whatsapp.com/send/?phone=${searchParams.contact}&text=Hai%2C%20Aku%20udah%20transfer%20ke%20kamu%20nih.%20Samawa%20ya%2C%20semoga%20dilancarkan%20sampai%20hari%20H.`}
               target="_blank"
               rel="noopener noreferrer"
               className="group relative flex h-9 items-center justify-center gap-2 overflow-hidden rounded-md bg-[#4a1325] px-6 font-medium text-[#e3c3b1] shadow"
             >
-              Konfirmasi Tranfer
+              Konfirmasi Transfer
               <div className="absolute bottom-0 left-0 aspect-square w-full translate-y-full rounded-4xl bg-amber-500/20 transition-transform group-hover:translate-y-[50%]"></div>
             </motion.a>
           </div>
@@ -548,7 +588,7 @@ function InvitationPage() {
         <section className="space-y-4 border-t-80 border-[#4a1325] bg-[#e3c3b1] px-6 py-20 text-center text-[#4a1325]">
           <motion.h1
             initial={{ opacity: 0, transform: "translateY(50px)" }}
-            whileInView={{ opacity: 1, transform: "translateY(0)" }}
+            whileInView={{ opacity: 1, transform: "translateY(0px)" }}
             transition={{ duration: 0.8 }}
             className="font-tangerine text-7xl"
           >
@@ -558,23 +598,103 @@ function InvitationPage() {
             initial={{ opacity: 0, scale: 0.5 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8 }}
-            className="space-y-4 rounded-lg bg-[#4a132532] px-6 py-12"
+            className="space-y-8 rounded-lg bg-[rgba(74,19,37,0.05)] py-8"
           >
-            {comments.map((comment, index) => (
-              <div
-                key={index}
-                className="flex gap-2 rounded-md bg-white p-2 text-start"
-              >
-                <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
-                  {comment.author.charAt(0)}
+            <form
+              onSubmit={form.handleSubmit(onSubmit)}
+              className="px-4 text-start"
+            >
+              <FieldGroup>
+                <Controller
+                  name="name"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="name">Nama</FieldLabel>
+                      <Input
+                        {...field}
+                        id="name"
+                        aria-invalid={fieldState.invalid}
+                        placeholder="Masukkan nama kamu"
+                        autoComplete="off"
+                        autoCorrect="off"
+                        autoCapitalize="off"
+                        spellCheck="false"
+                        className="rounded-sm bg-white"
+                      />
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+                <Controller
+                  name="message"
+                  control={form.control}
+                  render={({ field, fieldState }) => (
+                    <Field data-invalid={fieldState.invalid}>
+                      <FieldLabel htmlFor="message">Pesan</FieldLabel>
+                      <InputGroup className="rounded-sm bg-white">
+                        <InputGroupTextarea
+                          {...field}
+                          id="message"
+                          placeholder="Sampaikan pesanmu untuk kedua mempelai pengantin"
+                          rows={6}
+                          className="min-h-24 resize-none"
+                          aria-invalid={fieldState.invalid}
+                        />
+                        <InputGroupAddon align="block-end">
+                          <InputGroupText
+                            className={cn(
+                              "tabular-nums",
+                              fieldState.invalid && "text-destructive"
+                            )}
+                          >
+                            {field.value.length}/500 Karakter
+                          </InputGroupText>
+                        </InputGroupAddon>
+                      </InputGroup>
+                      {fieldState.invalid && (
+                        <FieldError errors={[fieldState.error]} />
+                      )}
+                    </Field>
+                  )}
+                />
+                <Field orientation="horizontal">
+                  <button
+                    type="submit"
+                    className="group relative flex h-9 w-full items-center justify-center gap-2 overflow-hidden rounded-md bg-[#4a1325] px-6 font-medium text-[#e3c3b1] shadow"
+                  >
+                    Kirim
+                    <Send size={16} />
+                    <div className="absolute bottom-0 left-0 aspect-square w-full translate-y-full rounded-4xl bg-amber-500/20 transition-transform group-hover:translate-y-[50%]"></div>
+                  </button>
+                </Field>
+              </FieldGroup>
+            </form>
+            <div className="flex flex-col items-center gap-4 px-4">
+              <HashLoader size={40} color="#4a1325" />
+              {comments.map((comment, index) => (
+                <div
+                  key={index}
+                  className="flex gap-2 rounded-md bg-white p-2 text-start"
+                >
+                  <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
+                    {comment.author.charAt(0)}
+                  </div>
+                  <div>
+                    <p className="font-semibold">{comment.author}</p>
+                    <p>{comment.message}</p>
+                    <p className="text-sm font-extralight">{comment.time}</p>
+                  </div>
                 </div>
-                <div>
-                  <p className="font-semibold">{comment.author}</p>
-                  <p>{comment.message}</p>
-                  <p className="text-sm font-extralight">{comment.time}</p>
-                </div>
-              </div>
-            ))}
+              ))}
+              <BasicPagination
+                totalPages={totalPages}
+                initialPage={initialPage}
+                onPageChange={(page) => console.log(page)}
+              />
+            </div>
           </motion.div>
         </section>
         <section className="relative flex h-screen flex-col items-center justify-start gap-8 overflow-hidden bg-[#e3c3b1] px-6 py-14 text-center text-[#4a1325]">
@@ -587,7 +707,7 @@ function InvitationPage() {
           <div className="flex flex-col items-center justify-start gap-4">
             <motion.h1
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="font-quintessential text-5xl font-bold"
             >
@@ -595,7 +715,7 @@ function InvitationPage() {
             </motion.h1>
             <motion.p
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8, delay: 0.3 }}
               className="max-w-96"
             >{`Merupakan suatu kehormatan dan kebahagiaan bagi kami apabila Bapak/Ibu/Saudara/i berkenan hadir dan memberikan do'a restu kepada kami.`}</motion.p>
@@ -603,7 +723,7 @@ function InvitationPage() {
           <div className="flex flex-col items-center justify-center gap-4">
             <motion.h1
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="font-quintessential text-2xl font-bold"
             >
@@ -611,7 +731,7 @@ function InvitationPage() {
             </motion.h1>
             <motion.h1
               initial={{ opacity: 0, transform: "translateY(50px)" }}
-              whileInView={{ opacity: 1, transform: "translateY(0)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
               transition={{ duration: 0.8 }}
               className="font-tangerine text-5xl font-bold"
             >
