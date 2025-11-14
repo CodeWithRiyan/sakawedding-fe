@@ -241,13 +241,13 @@ function InvitationPage() {
         />
         <meta
           property="og:image"
-          content="https://sakaloka.id/akin-nafisah/DSC06225.webp"
+          content="https://wedding.sakaloka.id/akin-nafisah/DSC06225.webp"
         />
         <meta property="og:image:width" content="1200" />
         <meta property="og:image:height" content="630" />
         <meta
           property="og:url"
-          content={`https://sakaloka.id/invitation/${name}`}
+          content={`https://wedding.sakaloka.id/invitation/${name}`}
         />
         <meta property="og:type" content="website" />
         <meta property="og:locale" content="id_ID" />
@@ -264,12 +264,12 @@ function InvitationPage() {
         />
         <meta
           name="twitter:image"
-          content="https://sakaloka.id/akin-nafisah/DSC06225.webp"
+          content="https://wedding.sakaloka.id/akin-nafisah/DSC06225.webp"
         />
 
         {/* Additional SEO */}
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`https://sakaloka.id/invitation/${name}`} />
+        <link rel="canonical" href={`https://wedding.sakaloka.id/invitation/${name}`} />
       </Helmet>
       <div
         className={cn(
@@ -843,7 +843,7 @@ function InvitationPage() {
                 Made With ❤️ by:
               </motion.p>
               <a
-                href="https://sakaloka.id"
+                href="https://wedding.sakaloka.id"
                 target="_blank"
                 rel="noreferrer"
                 title="Sakaloka"
