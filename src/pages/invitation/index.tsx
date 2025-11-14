@@ -1,11 +1,17 @@
 import AnimatedNumberCountdown from "@/components/custom/animated-number-countdown"
+import { cn } from "@/lib/utils"
 import dayjs from "dayjs"
-import { MapPin } from "lucide-react"
+import { Mail, MailOpen, MapPin } from "lucide-react"
 import { motion } from "motion/react"
 import queryString from "query-string"
+import { useRef, useState } from "react"
 import { useLocation, useParams } from "react-router"
 
 function InvitationPage() {
+  const [open, setOpen] = useState<boolean>(false)
+  const [isPlaying, setIsPlaying] = useState<boolean>(false)
+  const ref = useRef<HTMLDivElement>(null)
+  const audioRef = useRef<HTMLAudioElement>(null)
   const params = useParams()
   const location = useLocation()
   const searchParams = queryString.parse(location.search) as {
@@ -13,6 +19,39 @@ function InvitationPage() {
   }
   const name = params.name
   console.log("name", name)
+
+  const toggleMusic = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+        setIsPlaying(false)
+      } else {
+        audioRef.current.play()
+        setIsPlaying(true)
+      }
+    }
+  }
+
+  const handleOpenInvitation = () => {
+    setOpen(!open)
+    if (!open) {
+      setTimeout(() => {
+        ref.current?.scrollIntoView({ behavior: "smooth", block: "start" })
+      }, 100)
+
+      // Auto play music
+      if (audioRef.current) {
+        audioRef.current
+          .play()
+          .then(() => {
+            setIsPlaying(true)
+          })
+          .catch((error) => {
+            console.log("Audio autoplay failed:", error)
+          })
+      }
+    }
+  }
 
   const couple = {
     groom: {
@@ -112,8 +151,27 @@ function InvitationPage() {
   ]
 
   return (
-    <div className="flex w-full flex-col font-funnel lg:flex-row">
-      <div className="relative top-0 flex h-screen flex-1 flex-col items-center justify-center gap-4 text-center lg:sticky">
+    <div className={cn("flex w-full flex-col font-funnel", open && "lg:flex-row")}>
+      <audio ref={audioRef} loop>
+        <source
+          src="/music/Wedding_Nasheed_Muhammad_Al_Muqit.mp3"
+          type="audio/mpeg"
+        />
+      </audio>
+
+      <button
+        onClick={toggleMusic}
+        className={cn(
+          "fixed bottom-6 left-6 z-50 transition-opacity duration-500 cursor-pointer",
+          !open && "opacity-0",
+          isPlaying && "animate-spin-slow"
+        )}
+      >
+        <img src="/vinyl.png" alt="vinyl" className="w-20" />
+      </button>
+
+      <div className="sticky top-0 flex h-screen flex-1 flex-col items-center justify-center gap-4 text-center">
+        <div className="absolute inset-x-0 bottom-0 h-3/4 bg-gradient-to-t from-[#4a1325cc] to-[#4a13250]"></div>
         <div className="absolute inset-x-0 bottom-40 mt-60 flex flex-col items-center justify-center gap-4 text-center">
           <div className="space-y-2 font-tangerine font-bold text-white text-shadow-lg">
             <h2 className="text-[8vw] leading-[100%] font-bold md:text-5xl">
@@ -123,10 +181,31 @@ function InvitationPage() {
               Akin & Nafisah
             </h1>
           </div>
-          <div className="min-w-80 space-y-1 rounded-lg bg-white p-4 text-[#4a1325]">
+          <div className="min-w-80 space-y-2 rounded-lg p-4 text-white">
             <p>Kepada Yth.</p>
-            <p className="font-bold capitalize">{searchParams.to}</p>
-            <p>Di Tempat</p>
+            <p className="font-quintessential text-2xl font-bold capitalize">
+              {searchParams.to}
+            </p>
+            <div className="flex justify-center pt-4">
+              <button
+                onClick={handleOpenInvitation}
+                className="group relative flex h-9 cursor-pointer items-center justify-center gap-2 overflow-hidden rounded-md bg-[#e3c3b1] px-6 font-medium text-[#4a1325] shadow"
+              >
+                {open ? (
+                  <>
+                    <MailOpen size={18} />
+                    Tutup Undangan
+                  </>
+                ) : (
+                  <>
+                    <Mail size={18} />
+                    Buka Undangan
+                  </>
+                )}
+
+                <div className="absolute bottom-0 left-0 aspect-square w-full translate-y-full rounded-4xl bg-amber-500/20 transition-transform group-hover:translate-y-[50%]"></div>
+              </button>
+            </div>
           </div>
         </div>
         <div className="h-screen w-full">
@@ -137,7 +216,13 @@ function InvitationPage() {
           />
         </div>
       </div>
-      <div className="w-full max-w-none flex-none lg:max-w-xl">
+      <div
+        ref={ref}
+        className={cn(
+          "z-10 w-full max-w-none flex-none transition-all duration-500 lg:max-w-xl",
+          !open && "z-0 overflow-hidden lg:w-0"
+        )}
+      >
         <section className="flex min-h-screen items-center justify-center bg-[#4a1325]">
           <div className="space-y-4 text-center text-[#e3c3b1]">
             <motion.p
@@ -492,11 +577,12 @@ function InvitationPage() {
             ))}
           </motion.div>
         </section>
-        <section className="relative flex h-screen flex-col items-center justify-start gap-8 overflow-hidden px-6 py-14 text-center text-[#4a1325]">
+        <section className="relative flex h-screen flex-col items-center justify-start gap-8 overflow-hidden bg-[#e3c3b1] px-6 py-14 text-center text-[#4a1325]">
+          <div className="absolute inset-x-0 bottom-0 z-10 h-3/4 bg-gradient-to-t from-[#4a1325cc] to-[#4a13250]"></div>
           <img
             src="/akin-nafisah/DSC06187.webp"
             alt=""
-            className="object-[50 %_20%] absolute top-0 h-full w-full scale-150 object-cover"
+            className="absolute top-0 h-full w-full scale-150 object-cover object-[50%_20%]"
           />
           <div className="flex flex-col items-center justify-start gap-4">
             <motion.h1
