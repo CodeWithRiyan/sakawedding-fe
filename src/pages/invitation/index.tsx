@@ -1,5 +1,6 @@
 import AnimatedNumberCountdown from "@/components/custom/animated-number-countdown"
 import BasicPagination from "@/components/custom/basic-pagination"
+import SakalokaLogo from "@/components/custom/sakaloka-logo"
 import {
   Field,
   FieldError,
@@ -737,6 +738,77 @@ function InvitationPage() {
             >
               Akin & Nafisah
             </motion.h1>
+          </div>
+          <div className="absolute inset-x-0 bottom-10 z-20 flex flex-col items-center justify-center gap-2 text-white">
+            <motion.p
+              initial={{ opacity: 0, transform: "translateY(50px)" }}
+              whileInView={{ opacity: 1, transform: "translateY(0px)" }}
+              transition={{ duration: 0.5 }}
+              className="text-xs"
+            >
+              Made With ❤️ by:
+            </motion.p>
+            <a
+              href="https://sakaloka.id"
+              target="_blank"
+              rel="noreferrer"
+              title="Sakaloka"
+              className="block text-start"
+            >
+              <div className="flex items-center gap-2 tracking-tighter font-stretch-ultra-condensed">
+                <motion.div
+                  initial={{ scale: 0.8, rotate: -5000 }}
+                  whileInView={{ scale: 1, rotate: 0 }}
+                  transition={{
+                    type: "spring",
+                    bounce: 500,
+                    stiffness: 200,
+                    duration: 0.5,
+                  }}
+                >
+                  <SakalokaLogo />
+                </motion.div>
+                <motion.div
+                  initial={{ maxWidth: 0, maxHeight: 0, opacity: 0 }}
+                  whileInView={{ maxWidth: 2, maxHeight: 40, opacity: 1 }}
+                  transition={{
+                    type: "spring",
+                    bounce: 500,
+                    stiffness: 200,
+                    delay: 1,
+                  }}
+                  className="z-20 h-10 w-0.5 bg-[#f0b400]"
+                />
+                <div className="flex flex-col justify-center">
+                  <motion.span
+                    initial={{ opacity: 0, x: -10 }}
+                    whileInView={{ opacity: 1, x: 0 }}
+                    transition={{
+                      type: "spring",
+                      bounce: 500,
+                      stiffness: 200,
+                      delay: 1.5,
+                    }}
+                    className="z-10 text-lg leading-[100%] font-semibold text-[#f0b400]"
+                  >
+                    SAKALOKA
+                  </motion.span>
+                  <motion.span
+                    initial={{ opacity: 0, y: -5 }}
+                    whileInView={{ opacity: 1, y: 0 }}
+                    transition={{
+                      type: "spring",
+                      bounce: 500,
+                      stiffness: 200,
+                      delay: 1.8,
+                    }}
+                    className="font-lora text-[10px] leading-[100%] text-white"
+                  >
+                    DIGITAL
+                  </motion.span>
+                </div>
+              </div>
+            </a>
           </div>
         </section>
       </div>
