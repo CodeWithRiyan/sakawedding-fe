@@ -5,6 +5,7 @@ import type { RouteObject } from "react-router"
 const MainLayout = lazy(() => import("@/components/layouts/public/main-layout"))
 const LandingPage = lazy(() => import("@/pages/landing"))
 const InvitationPage = lazy(() => import("@/pages/invitation"))
+const ShareLinkPage = lazy(() => import("@/pages/share-link"))
 
 // Not Found
 const NotFound = lazy(() => import("@/pages/not-found"))
@@ -16,6 +17,7 @@ export const PublicRoute: RouteObject[] = [
     children: [
       { path: "/", element: <LandingPage /> },
       { path: "/invitation/:name", element: <InvitationPage /> },
+      { path: "/share-link", element: <ShareLinkPage /> },
       { path: "*", element: <NotFound /> },
     ],
   },
