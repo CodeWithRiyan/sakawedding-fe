@@ -16,7 +16,7 @@ export function Loader({
         className
       )}
     >
-      <HashLoader size={md ? 100 : 50} color="currentColor" {...props} />
+      <HashLoader size={md ? 100 : 50} color="#e3c3b1" {...props} />
     </div>
   )
 }

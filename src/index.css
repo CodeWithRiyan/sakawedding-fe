@@ -25,14 +25,14 @@
   --card-foreground: oklch(0.13 0.028 261.692);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.13 0.028 261.692);
-  --primary: oklch(0.21 0.034 264.665);
-  --primary-foreground: oklch(0.985 0.002 247.839);
-  --secondary: oklch(0.967 0.003 264.542);
-  --secondary-foreground: oklch(0.21 0.034 264.665);
+  --primary: oklch(0.2849 0.0846 4.2043);
+  --primary-foreground: oklch(0.8398 0.0441 51.1557);
+  --secondary: oklch(0.8398 0.0441 51.1557);
+  --secondary-foreground: oklch(0.2849 0.0846 4.2043);
   --muted: oklch(0.967 0.003 264.542);
   --muted-foreground: oklch(0.551 0.027 264.364);
   --accent: oklch(0.967 0.003 264.542);
-  --accent-foreground: oklch(0.21 0.034 264.665);
+  --accent-foreground: oklch(0.2849 0.0846 4.2043);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.928 0.006 264.531);
   --input: oklch(0.928 0.006 264.531);
@@ -102,10 +102,10 @@
   --card-foreground: oklch(0.985 0.002 247.839);
   --popover: oklch(0.21 0.034 264.665);
   --popover-foreground: oklch(0.985 0.002 247.839);
-  --primary: oklch(0.928 0.006 264.531);
-  --primary-foreground: oklch(0.21 0.034 264.665);
-  --secondary: oklch(0.278 0.033 256.848);
-  --secondary-foreground: oklch(0.985 0.002 247.839);
+  --primary: oklch(0.2849 0.0846 4.2043);
+  --primary-foreground: oklch(0.8398 0.0441 51.1557);
+  --secondary: oklch(0.8398 0.0441 51.1557);
+  --secondary-foreground: oklch(0.2849 0.0846 4.2043);
   --muted: oklch(0.278 0.033 256.848);
   --muted-foreground: oklch(0.707 0.022 261.325);
   --accent: oklch(0.278 0.033 256.848);
@@ -141,7 +141,7 @@
 /* Animation */
 @theme {
   --keyframes-spin: spin;
-  
+
   @keyframes spin {
     from {
       transform: rotate(0deg);
@@ -150,6 +150,6 @@
       transform: rotate(360deg);
     }
   }
-  
+
   --animate-spin-slow: spin 4s linear infinite;
 }
