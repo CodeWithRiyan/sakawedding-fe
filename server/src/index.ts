@@ -2,8 +2,8 @@ import express from "express"
 import cors from "cors"
 import path from "path"
 import { fileURLToPath } from "url"
-import invitationRoutes from "./routes/invitation.routes"
-import commentRoutes from "./routes/comment.routes"
+import invitationRoutes from "./routes/invitation.routes.js"
+import commentRoutes from "./routes/comment.routes.js"
 
 const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)

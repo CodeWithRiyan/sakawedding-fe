@@ -1,5 +1,5 @@
 import { Request, Response } from "express"
-import invitationsData from "../data/invitations.json"
+import invitationsData from "../data/invitations.json" with { type: "json" }
 
 export const getInvitationByName = (req: Request, res: Response) => {
   const { name } = req.params

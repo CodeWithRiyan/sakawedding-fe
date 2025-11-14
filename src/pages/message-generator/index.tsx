@@ -51,7 +51,6 @@ function MessageGeneratorPage() {
   const [error, setError] = useState<string | null>(null)
   const [copied, setCopied] = useState<boolean>(false)
   const [generatedMessage, setGeneratedMessage] = useState<string>("")
-  const [generatedUrl, setGeneratedUrl] = useState<string>("")
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -61,8 +60,6 @@ function MessageGeneratorPage() {
       contact: "",
     },
   })
-
-  const watchedValues = form.watch()
 
   // Fetch invitation data
   useEffect(() => {
@@ -94,8 +91,6 @@ function MessageGeneratorPage() {
       event: data.event !== "all" ? data.event : undefined,
       contact: data.contact,
     })}`
-
-    setGeneratedUrl(url)
 
     const groomName = "Akin"
     const brideName = invitation.couple.bride.name.split(" ")[0]
@@ -269,7 +264,6 @@ __________________`
               onClick={() => {
                 form.reset()
                 setGeneratedMessage("")
-                setGeneratedUrl("")
               }}
             >
               Reset

@@ -1,5 +1,5 @@
 import { Router, type IRouter } from "express"
-import { getComments, createComment } from "../controllers/comment.controller"
+import { getComments, createComment } from "../controllers/comment.controller.js"
 
 const router: IRouter = Router()
 
