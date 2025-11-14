@@ -2,7 +2,7 @@ import { Router, type IRouter } from "express"
 import {
   getAllInvitations,
   getInvitationByName,
-} from "../controllers/invitation.controller"
+} from "../controllers/invitation.controller.js"
 
 const router: IRouter = Router()
 
