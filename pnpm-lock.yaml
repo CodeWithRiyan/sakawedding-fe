@@ -104,6 +104,9 @@ importers:
       "@types/react-dom":
         specifier: ^19.2.2
         version: 19.2.3(@types/react@19.2.4)
+      "@types/react-helmet":
+        specifier: ^6.1.11
+        version: 6.1.11
       "@vitejs/plugin-react":
         specifier: ^5.1.0
         version: 5.1.1(rolldown-vite@7.2.2(@types/node@24.10.1)(jiti@2.6.1))
@@ -1237,6 +1240,12 @@ packages:
       }
     peerDependencies:
       "@types/react": ^19.2.0
+
+  "@types/react-helmet@6.1.11":
+    resolution:
+      {
+        integrity: sha512-0QcdGLddTERotCXo3VFlUSWO3ztraw8nZ6e3zJSgG7apwV5xt+pJUS8ewPBqT4NYB1optGLprNQzFleIY84u/g==,
+      }
 
   "@types/react@19.2.4":
     resolution:
@@ -3524,6 +3533,10 @@ snapshots:
       undici-types: 7.16.0
 
   "@types/react-dom@19.2.3(@types/react@19.2.4)":
+    dependencies:
+      "@types/react": 19.2.4
+
+  "@types/react-helmet@6.1.11":
     dependencies:
       "@types/react": 19.2.4
 
