@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build && pnpm build:server",
-    "build:server": "tsc -p server/tsconfig.json",
+    "build:server": "tsc -p server/tsconfig.json && node scripts/copy-data.js",
     "start": "node server/dist/index.js",
     "lint": "eslint .",
     "preview": "vite preview",

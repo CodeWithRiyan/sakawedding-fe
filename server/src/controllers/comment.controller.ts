@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Request, Response } from "express"
 import fs from "fs"
 import path from "path"
@@ -7,12 +8,29 @@ const __filename = fileURLToPath(import.meta.url)
 const __dirname = path.dirname(__filename)
 const commentsFilePath = path.join(__dirname, "../data/comments.json")
 
+// Ensure data directory and file exist
+const ensureDataFile = () => {
+  const dataDir = path.dirname(commentsFilePath)
+
+  if (!fs.existsSync(dataDir)) {
+    fs.mkdirSync(dataDir, { recursive: true })
+    console.log("✓ Created data directory:", dataDir)
+  }
+
+  if (!fs.existsSync(commentsFilePath)) {
+    fs.writeFileSync(commentsFilePath, JSON.stringify({}))
+    console.log("✓ Created comments.json file")
+  }
+}
+
 const readComments = () => {
+  ensureDataFile()
   const data = fs.readFileSync(commentsFilePath, "utf-8")
   return JSON.parse(data)
 }
 
 const writeComments = (data: any) => {
+  ensureDataFile()
   fs.writeFileSync(commentsFilePath, JSON.stringify(data, null, 2))
 }
 
@@ -24,13 +42,11 @@ export const getComments = (req: Request, res: Response) => {
   const allComments = readComments()
   const invitationComments = allComments[invitationId] || []
 
-  // Sort by createdAt descending (newest first)
   const sortedComments = invitationComments.sort(
     (a: any, b: any) =>
       new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
   )
 
-  // Pagination
   const startIndex = (page - 1) * limit
   const endIndex = startIndex + limit
   const paginatedComments = sortedComments.slice(startIndex, endIndex)
