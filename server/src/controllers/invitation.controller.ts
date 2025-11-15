@@ -4,8 +4,7 @@ import invitationsData from "../data/invitations.json" with { type: "json" }
 export const getInvitationByName = (req: Request, res: Response) => {
   const { name } = req.params
 
-  const invitation =
-    invitationsData[name as keyof typeof invitationsData]
+  const invitation = invitationsData[name as keyof typeof invitationsData]
 
   if (!invitation) {
     return res.status(404).json({

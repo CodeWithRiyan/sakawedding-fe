@@ -269,7 +269,10 @@ function InvitationPage() {
 
         {/* Additional SEO */}
         <meta name="robots" content="index, follow" />
-        <link rel="canonical" href={`https://wedding.sakaloka.id/invitation/${name}`} />
+        <link
+          rel="canonical"
+          href={`https://wedding.sakaloka.id/invitation/${name}`}
+        />
       </Helmet>
       <div
         className={cn(
@@ -759,37 +762,37 @@ function InvitationPage() {
                 </FieldGroup>
               </form>
               <div className="flex flex-col items-center gap-4 px-4">
-              {commentsLoading ? (
-                <HashLoader size={40} color="#4a1325" />
-              ) : comments.length > 0 ? (
-                <>
-                  {comments.map((comment) => (
-                    <div
-                      key={comment.id}
-                      className="w-full flex gap-2 rounded-md bg-white p-2 text-start"
-                    >
-                      <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
-                        {comment.author.charAt(0).toUpperCase()}
+                {commentsLoading ? (
+                  <HashLoader size={40} color="#4a1325" />
+                ) : comments.length > 0 ? (
+                  <>
+                    {comments.map((comment) => (
+                      <div
+                        key={comment.id}
+                        className="flex w-full gap-2 rounded-md bg-white p-2 text-start"
+                      >
+                        <div className="flex size-10 flex-none items-center justify-center rounded-full bg-gray-200">
+                          {comment.author.charAt(0).toUpperCase()}
+                        </div>
+                        <div className="flex-1">
+                          <p className="font-semibold">{comment.author}</p>
+                          <p>{comment.message}</p>
+                          <p className="text-sm font-extralight">
+                            {getRelativeTime(comment.createdAt)}
+                          </p>
+                        </div>
                       </div>
-                      <div className="flex-1">
-                        <p className="font-semibold">{comment.author}</p>
-                        <p>{comment.message}</p>
-                        <p className="text-sm font-extralight">
-                          {getRelativeTime(comment.createdAt)}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                  <BasicPagination
-                    totalPages={totalPages}
-                    initialPage={currentPage}
-                    onPageChange={handlePageChange}
-                  />
-                </>
-              ) : (
-                <p className="text-center">Belum ada komentar</p>
-              )}
-            </div>
+                    ))}
+                    <BasicPagination
+                      totalPages={totalPages}
+                      initialPage={currentPage}
+                      onPageChange={handlePageChange}
+                    />
+                  </>
+                ) : (
+                  <p className="text-center">Belum ada komentar</p>
+                )}
+              </div>
             </motion.div>
           </section>
           <section className="relative flex h-screen flex-col items-center justify-start gap-8 overflow-hidden bg-[#e3c3b1] px-6 py-14 text-center text-[#4a1325]">

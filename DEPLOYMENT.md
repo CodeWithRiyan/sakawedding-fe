@@ -5,11 +5,13 @@ This guide will help you deploy the SakaWedding application to your Coolify serv
 ## Architecture
 
 The application is a full-stack setup:
+
 - **Frontend**: React + Vite (built to static files)
 - **Backend**: Express.js (serves API + static frontend)
 - **Database**: JSON files (simple storage)
 
 In production, the Express server serves both:
+
 1. API endpoints at `/api/*`
 2. Frontend static files for all other routes
 
@@ -42,6 +44,7 @@ In Coolify, you can set these environment variables:
 ### 4. Build & Deploy
 
 Coolify will automatically:
+
 1. Install dependencies with `pnpm install`
 2. Build the frontend with `vite build`
 3. Build the backend with TypeScript compiler
@@ -96,21 +99,25 @@ https://your-domain.com/invitation/akin-nafisah?to=GuestName
 ## Troubleshooting
 
 ### Build fails
+
 - Check the Coolify build logs
 - Ensure all dependencies are in `package.json`
 - Verify TypeScript compilation errors
 
 ### Server doesn't start
+
 - Check if PORT is properly set by Coolify
 - Verify the start command in nixpacks.toml
 - Check server logs in Coolify
 
 ### API not working
+
 - Verify the server is running on the correct port
 - Check if `/health` endpoint responds
 - Review server logs for errors
 
 ### Frontend shows blank page
+
 - Check browser console for errors
 - Verify the build created `dist/index.html`
 - Check if static files are being served correctly
@@ -118,10 +125,12 @@ https://your-domain.com/invitation/akin-nafisah?to=GuestName
 ## Data Persistence
 
 The application uses JSON files for data storage located at:
+
 - `server/src/data/invitations.json`
 - `server/src/data/comments.json`
 
 **Important**: These files will be reset on each deployment. For persistent data, consider:
+
 1. Using Coolify's persistent volumes
 2. Migrating to a proper database (PostgreSQL, MongoDB, etc.)
 3. Using environment variables for configuration
