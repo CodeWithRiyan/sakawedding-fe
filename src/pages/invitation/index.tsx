@@ -99,6 +99,7 @@ function InvitationPage() {
           currentPage,
           10
         )
+        console.log("response: ", response)
         setComments(response.data)
         setTotalPages(response.pagination.totalPages)
       } catch (err) {
@@ -846,7 +847,7 @@ function InvitationPage() {
                 Made With ❤️ by:
               </motion.p>
               <a
-                href="https://wedding.sakaloka.id"
+                href="https://sakaloka.id"
                 target="_blank"
                 rel="noreferrer"
                 title="Sakaloka"
