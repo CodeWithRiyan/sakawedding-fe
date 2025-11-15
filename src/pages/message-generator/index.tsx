@@ -89,8 +89,7 @@ function MessageGeneratorPage() {
     const url = `${baseUrl}/invitation/${name}?${queryString.stringify({
       to: data.to,
       event: data.event !== "all" ? data.event : undefined,
-      contact: data.contact,
-    })}`
+    })}&contact=${data.contact}`
 
     const groomName = "Akin"
     const brideName = invitation.couple.bride.name.split(" ")[0]
@@ -243,7 +242,7 @@ __________________`
                       {...field}
                       id="contact"
                       aria-invalid={fieldState.invalid}
-                      placeholder="Masukkan no whatsapp (contoh: 081234567890)"
+                      placeholder="Masukkan no WA untuk konfirmasi TF (contoh: 081234567890)"
                       autoComplete="mobile tel"
                       className="rounded-sm bg-white"
                     />
@@ -277,36 +276,30 @@ __________________`
 
       <Card>
         <CardHeader>
-          <div className="flex items-center justify-between">
-            <div>
-              <CardTitle>Hasil Generate</CardTitle>
-              <CardDescription>
-                Hasil generate undangan pesan whatsapp.
-              </CardDescription>
-            </div>
-            {generatedMessage && (
-              <button
-                onClick={handleCopyMessage}
-                className="flex items-center gap-2 rounded-md bg-[#4a1325] px-4 py-2 text-sm text-white transition-colors hover:bg-[#5a1835]"
-              >
-                {copied ? (
-                  <>
-                    <Check size={16} />
-                    Tersalin!
-                  </>
-                ) : (
-                  <>
-                    <Copy size={16} />
-                    Salin
-                  </>
-                )}
-              </button>
-            )}
-          </div>
+          <CardTitle>Hasil Generate</CardTitle>
+          <CardDescription>
+            Hasil generate undangan pesan whatsapp.
+          </CardDescription>
         </CardHeader>
         <CardContent>
           {form.formState.isSubmitSuccessful && generatedMessage ? (
-            <div className="rounded-md bg-gray-100 p-4 font-mono text-sm break-words whitespace-pre-wrap">
+            <div className="relative rounded-md bg-gray-100 p-4 font-mono text-sm wrap-break-word whitespace-pre-wrap">
+              {generatedMessage && (
+                <button
+                  onClick={handleCopyMessage}
+                  className="hover:bg-bg-gray-300 absolute top-2 right-2 flex cursor-pointer items-center gap-2 rounded-md bg-gray-200 p-2 text-sm transition-colors"
+                >
+                  {copied ? (
+                    <>
+                      <Check size={16} className="text-green-500" />
+                    </>
+                  ) : (
+                    <>
+                      <Copy size={16} />
+                    </>
+                  )}
+                </button>
+              )}
               {generatedMessage}
             </div>
           ) : (
