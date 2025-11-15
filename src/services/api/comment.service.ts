@@ -1,5 +1,5 @@
 import { API_ENDPOINTS } from "./config"
-import type { Comment, PaginatedApiResponse, ApiResponse } from "./types"
+import type { ApiResponse, Comment, PaginatedApiResponse } from "./types"
 
 export interface CreateCommentDto {
   author: string
@@ -52,7 +52,9 @@ export const commentService = {
 
       if (!response.ok) {
         const errorData = await response.json()
-        throw new Error(errorData.message || `HTTP error! status: ${response.status}`)
+        throw new Error(
+          errorData.message || `HTTP error! status: ${response.status}`
+        )
       }
 
       const result: ApiResponse<Comment> = await response.json()
