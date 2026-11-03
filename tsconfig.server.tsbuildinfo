@@ -1,1 +1,0 @@
-{"root":["./server/src/index.ts","./server/src/controllers/comment.controller.ts","./server/src/controllers/invitation.controller.ts","./server/src/routes/comment.routes.ts","./server/src/routes/invitation.routes.ts"],"version":"5.9.3"}
